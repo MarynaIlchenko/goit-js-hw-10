@@ -41,6 +41,10 @@ ul li {
   padding: 0;
 }
 
+.country-list__item:not(:last-child) {
+margin-bottom: 10px;
+}
+
 .country-list__item--icon {
   width: 50px;
   height: auto;
