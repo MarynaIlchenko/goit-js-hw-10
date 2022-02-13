@@ -20,7 +20,11 @@ function inputData(event) {
   countryInfoRef.innerHTML = '';
   countryListRef.innerHTML = '';
   if (inputField !== '') {
-    fetchCountries(inputField).then(renderCountryCard).catch(onErrorMessage);
+    fetchCountries(inputField)
+      .then(renderCountryCard)
+      .catch(error => {
+        console.log(onErrorMessage);
+      });
   }
 }
 
