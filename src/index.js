@@ -3,7 +3,7 @@ import { fetchCountries } from '../src/js/fetchCountries';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 import countryListTemplate from '../src/templates/country-list.hbs';
-import countryCardTemplate from '../src/templates/country-card.hbs';
+import countryCardTemplate from '../src/templates/country-info.hbs';
 
 const DEBOUNCE_DELAY = 300;
 const inputRef = document.querySelector('#search-box');
@@ -15,7 +15,7 @@ let inputField = '';
 inputRef.addEventListener('input', debounce(inputData, DEBOUNCE_DELAY));
 
 function inputData(event) {
-  inputField = inputRef.value.trim();
+  inputField = event.target.value.trim();
   console.log(inputField);
   countryInfoRef.innerHTML = '';
   countryListRef.innerHTML = '';
@@ -31,6 +31,7 @@ function renderCountryCard(countries) {
     createCountryList(countries);
   } else if (countries === 1) {
     createCountryInfo(countries);
+    console.log(createCountryInfo);
   }
 }
 
