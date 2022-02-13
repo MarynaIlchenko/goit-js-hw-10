@@ -15,7 +15,8 @@ let inputField = '';
 inputRef.addEventListener('input', debounce(inputData, DEBOUNCE_DELAY));
 
 function inputData(event) {
-  inputField = event.target.value.trim();
+  inputField = inputRef.value.trim();
+  console.log(inputField);
   countryInfoRef.innerHTML = '';
   countryListRef.innerHTML = '';
   if (inputField !== '') {
@@ -28,7 +29,7 @@ function renderCountryCard(countries) {
     tooManyMatches();
   } else if (countries.length > 1 && countries.length <= 10) {
     createCountryList(countries);
-  } else {
+  } else if (countries === 1) {
     createCountryInfo(countries);
   }
 }
@@ -42,6 +43,7 @@ function createCountryList(countries) {
 function createCountryInfo(countries) {
   let { name, flags, capital, population, languages } = countries[0];
   languages = languages.map(language => language.name).join(', ');
+  console.log(languages);
   countryInfoRef.insertAdjacentHTML(
     'beforeend',
     countryCardTemplate({ name, flags, capital, population, languages }),
