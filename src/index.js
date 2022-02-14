@@ -8,7 +8,7 @@ import countryCardTemplate from '../src/templates/country-info.hbs';
 const DEBOUNCE_DELAY = 300;
 const inputRef = document.querySelector('#search-box');
 const countryListRef = document.querySelector('ul.country-list');
-const countryInfoRef = document.querySelector('div.country-info');
+const countryInfoRef = document.querySelector('.country-info');
 
 let inputField = '';
 
@@ -23,19 +23,22 @@ function inputData(event) {
     fetchCountries(inputField)
       .then(renderCountryCard)
       .catch(error => {
-        console.log(onErrorMessage);
+        // console.log(onErrorMessage);
+        console.log(error);
+        onErrorMessage();
       });
   }
 }
 
 function renderCountryCard(countries) {
+  console.log('length', countries.length);
   if (countries.length > 10) {
     tooManyMatches();
   } else if (countries.length > 1 && countries.length <= 10) {
     createCountryList(countries);
-  } else if (countries === 1) {
+  } else if (countries.length === 1) {
     createCountryInfo(countries);
-    console.log(createCountryInfo);
+    // console.log(createCountryInfo);
   }
 }
 
@@ -47,8 +50,13 @@ function createCountryList(countries) {
 
 function createCountryInfo(countries) {
   let { name, flags, capital, population, languages } = countries[0];
-  languages = languages.map(language => language.name).join(', ');
-  console.log(languages);
+  console.log(countries[0]);
+  //   languages = languages.map(language => language.name).join(', ');
+  // let langs;
+  languages = Object.keys(languages)
+    .map(key => languages[key])
+    .join(', ');
+  //   console.log(languages);
   countryInfoRef.insertAdjacentHTML(
     'beforeend',
     countryCardTemplate({ name, flags, capital, population, languages }),
